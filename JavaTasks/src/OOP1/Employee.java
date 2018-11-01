@@ -1,3 +1,5 @@
+package OOP1;
+
 public class Employee {
 
     private int id;
@@ -24,8 +26,8 @@ public class Employee {
         return lastName;
     }
 
-    public String getName(){
-        return getFirstName()+" "+getLastName();
+    public String getName() {
+        return getFirstName() + " " + getLastName();
     }
 
     public int getSalary() {
@@ -36,12 +38,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getAnnualSalary(){
-        return 12*salary;
+    public int getAnnualSalary() {
+        return 12 * salary;
     }
 
-    public int raiseSalary(int percent){
-        salary+=salary*percent/100;
+    public int raiseSalary(int percent) {
+        salary += salary * percent / 100;
         return salary;
     }
 
@@ -52,6 +54,26 @@ public class Employee {
                 ",name=" + getName() +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Employee)) return false;
+
+        Employee emp = (Employee) obj;
+        return id == emp.id && firstName.equals(emp.firstName)
+                && lastName.equals(emp.lastName) && salary == emp.salary;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + salary;
+        return result;
     }
 }
 

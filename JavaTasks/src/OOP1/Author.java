@@ -1,3 +1,5 @@
+package OOP1;
+
 public class Author {
 
     private String name;
@@ -21,5 +23,23 @@ public class Author {
 
     public String getName() {       // Возвращает имя одного автора
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Author)) return false;
+
+        Author author = (Author) obj;
+        return name.equals(author.name) && email.equals(author.email) && gender == author.gender;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + (int) gender;
+        return result;
     }
 }

@@ -1,3 +1,5 @@
+package OOP1;
+
 public class Rectangle {
 
     private float length = 1.0f;
@@ -27,12 +29,12 @@ public class Rectangle {
         this.width = width;
     }
 
-    public double getArea(){
-        return length*width;
+    public double getArea() {
+        return length * width;
     }
 
-    public double getPerimeter(){
-        return 2*(length+width);
+    public double getPerimeter() {
+        return 2 * (length + width);
     }
 
     @Override
@@ -41,5 +43,22 @@ public class Rectangle {
                 "length=" + length +
                 ", width=" + width +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+
+        Rectangle rt = (Rectangle) o;
+        return length == rt.length && width == rt.width;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + Float.floatToIntBits(length);
+        result = 31 * result + Float.floatToIntBits(width);
+        return result;
     }
 }

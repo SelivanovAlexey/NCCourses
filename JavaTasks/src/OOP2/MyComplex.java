@@ -1,3 +1,5 @@
+package OOP2;
+
 import java.math.*;
 
 public class MyComplex {
@@ -104,5 +106,24 @@ public class MyComplex {
 
     public MyComplex conjugate(){
         return new MyComplex(this.real,this.imag*-1);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof MyComplex)) return false;
+
+        MyComplex num = (MyComplex) o;
+        return real == num.real && imag == num.imag;
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 17;
+        long f = Double.doubleToLongBits(real);
+        result = 31 * result + (int) (f ^ f >>> 32);
+        f = Double.doubleToLongBits(imag);
+        result = 31 * result + (int) (f ^ f >>> 32);
+        return result;
     }
 }

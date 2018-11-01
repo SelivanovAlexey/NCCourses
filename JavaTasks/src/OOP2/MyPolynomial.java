@@ -1,4 +1,7 @@
+package OOP2;
+
 import java.math.*;
+import java.util.Arrays;
 
 public class MyPolynomial {
 
@@ -48,6 +51,26 @@ public class MyPolynomial {
             }
         }
         return newPol;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof MyPolynomial)) return false;
+
+        MyPolynomial pol = (MyPolynomial) o;
+        return Arrays.equals(coeffs,pol.coeffs);
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 17;
+        long f;
+        for(double el:coeffs){
+            f = Double.doubleToLongBits(el);
+            result = 31 * result + (int) (f ^ f >>> 32);
+        }
+        return result;
     }
 
 }

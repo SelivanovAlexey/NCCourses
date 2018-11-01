@@ -1,3 +1,5 @@
+package OOP1;
+
 import java.util.Arrays;
 
 public class Book {
@@ -54,11 +56,34 @@ public class Book {
                 '}';
     }
 
-    public String getAuthorNames(){
-        String authorNames="";
-        for (Author  aut : authors){
-           authorNames+=aut.getName()+" ";
+    public String getAuthorNames() {
+        String authorNames = "";
+        for (Author aut : authors) {
+            authorNames += aut.getName() + " ";
         }
         return authorNames;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Book)) return false;
+
+        Book book = (Book) obj;
+        return this.name.equals(book.name) && Arrays.equals(this.authors,authors)
+                && this.price == book.price && this.qty == book.qty;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + name.hashCode();
+        for (Author el : authors) {
+            result = 31 * result + el.hashCode();
+        }
+        long f = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (f ^ f >>> 32);
+        result = 31 * result + qty;
+        return result;
     }
 }

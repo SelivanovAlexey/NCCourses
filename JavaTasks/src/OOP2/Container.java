@@ -1,3 +1,5 @@
+package OOP2;
+
 public class Container {
 
     private int x1;
@@ -46,5 +48,26 @@ public class Container {
                 "),(" + x2 +
                 "," + y2 +
                 ")]";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof Container)) return false;
+
+        Container container = (Container) o;
+        return x1==container.x1 && x2==container.x2
+                && y1==container.y1 && y2==container.y2;
+
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 17;
+        result = 31 * result + x1;
+        result = 31 * result + x2;
+        result = 31 * result + y1;
+        result = 31 * result + y2;
+        return result;
     }
 }
