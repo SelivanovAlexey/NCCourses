@@ -48,7 +48,7 @@ public class Rectangle {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
+        if (!(o instanceof Rectangle)) return false;
 
         Rectangle rt = (Rectangle) o;
         return length == rt.length && width == rt.width;

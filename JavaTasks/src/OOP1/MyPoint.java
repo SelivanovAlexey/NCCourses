@@ -62,7 +62,7 @@ public class MyPoint {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
+        if (!(o instanceof MyPoint)) return false;
 
         MyPoint point = (MyPoint) o;
         return x == point.x && y == point.y;
