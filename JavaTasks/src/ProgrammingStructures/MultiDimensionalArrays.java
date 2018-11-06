@@ -59,7 +59,7 @@ public class MultiDimensionalArrays {
             System.out.print(" | Max: " + max + ", min: " + min);
             max = -99;
             min = 99;
-            System.out.print("\n");
+            System.out.println();
         }
         System.out.println("____________________\n");
 
