@@ -36,7 +36,7 @@ public class MultiDimensionalArrays {
                     mulSide *= arr[i][j];
                 }
             }
-            System.out.print("\n");
+            System.out.println();
         }
         System.out.println("Sum of main diagonal: " + sumMain + ", multiply of main diagonal: " + mulMain);
         System.out.println("Sum of side diagonal: " + sumSide + ", multiply of side diagonal: " + mulSide);
@@ -59,7 +59,7 @@ public class MultiDimensionalArrays {
             System.out.print(" | Max: " + max + ", min: " + min);
             max = -99;
             min = 99;
-            System.out.print("\n");
+            System.out.println();
         }
         System.out.println("____________________\n");
 
