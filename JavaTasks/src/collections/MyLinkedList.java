@@ -8,9 +8,9 @@ import java.util.NoSuchElementException;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
 
-    transient int size;                                 // Размер списка
-    transient Node<E> first;                            // Указатель на первый элемент
-    transient Node<E> last;                             // Указатель на последний элемент
+    private int size;                                 // Размер списка
+    private Node<E> first;                            // Указатель на первый элемент
+    private Node<E> last;                             // Указатель на последний элемент
 
     public MyLinkedList() {                             // Создается пустой спиосок
         size = 0;
