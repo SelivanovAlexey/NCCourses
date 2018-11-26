@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Отцы и дети",
+    "author": {
+      "name": "Иван Сергеевич Тургенев",
+      "email": "mumu4ever@gmail.com",
+      "gender": "M"
+    },
+    "price": 1299.0,
+    "qty": 5
+  },
+  {
+    "name": "1984",
+    "author": {
+      "name": "Олдос Леонард Хаксли",
+      "email": "hxl@yahoo.com",
+      "gender": "M"
+    },
+    "price": 1099.0,
+    "qty": 1
+  },
+  {
+    "name": "Убийство в восточном экспрессе",
+    "author": {
+      "name": "Агата Кристи",
+      "email": "orientexpress@gmail.uk",
+      "gender": "F"
+    },
+    "price": 1499.0,
+    "qty": 30
+  }
+]
