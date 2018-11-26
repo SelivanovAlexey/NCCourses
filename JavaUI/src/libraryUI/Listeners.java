@@ -37,13 +37,26 @@ public class Listeners {
                     (genderRBtnFemale.isSelected() == false && genderRBtnMale.isSelected() == false)) {
                 JOptionPane.showMessageDialog(dialog, "Some fields are empty");
             } else {
+                String error = "";
                 try {
-                    Book addingBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
-                            emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
-                            Integer.parseInt(countText.getText()));
-                    model.addBook(addingBook);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialog, "Wrong field type");
+                	Double.parseDouble(priceText.getText());
+                }
+                catch(NumberFormatException ex) {
+                	error+=("Wrong price (should be double): "+priceText.getText()+'\n');
+                }
+                try {
+                	Double.parseDouble(countText.getText());
+                }
+                catch(NumberFormatException ex) {
+                	error+=("Wrong book's count (should be double): "+countText.getText());
+                }
+                if (!(error.equals(""))) 
+                	JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
+                else {
+	                Book addingBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
+	                        emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
+	                        Integer.parseInt(countText.getText()));
+	                model.addBook(addingBook);
                 }
             }
         }
@@ -59,17 +72,29 @@ public class Listeners {
                     emailText.getText().isEmpty() ||
                     (genderRBtnFemale.isSelected() == false && genderRBtnMale.isSelected() == false)) {
                 JOptionPane.showMessageDialog(dialog, "Some fields are empty");
-
             } else {
+                int row = table.getSelectedRow();
+                String error = "";
                 try {
-                    int row = table.getSelectedRow();
-                    Book newBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
-                            emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
-                            Integer.parseInt(countText.getText()));
-                    model.editBook(row, newBook);
-                    dialog.setVisible(false);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialog, "Wrong field type");
+                	Double.parseDouble(priceText.getText());
+                }
+                catch(NumberFormatException ex) {
+                	error+=("Wrong price (should be double): "+priceText.getText()+'\n');
+                }
+                try {
+                	Double.parseDouble(countText.getText());
+                }
+                catch(NumberFormatException ex) {
+                	error+=("Wrong book's count (should be double): "+countText.getText());
+                }
+                if (!(error.equals(""))) 
+                	JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
+                else {
+	                Book newBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
+	                        emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
+	                        Integer.parseInt(countText.getText()));
+	                model.editBook(row, newBook);
+	                dialog.setVisible(false);
                 }
             }
         }
@@ -307,4 +332,6 @@ public class Listeners {
         else genderRBtnMale.setSelected(true);
     }
 }
+
+
 
