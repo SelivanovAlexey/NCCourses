@@ -139,7 +139,7 @@ public class Listeners {
                 JLabel lblSlct = new JLabel("You have selected:  " + table.getValueAt(table.getSelectedRow(), 0));
                 JLabel lblInstck = new JLabel("In stock:  " + table.getValueAt(table.getSelectedRow(), 3) + " book(s)");
                 JLabel lblQuestion = new JLabel("How many books you want to delete: ");
-                JSpinner spinnerAmount = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+                JSpinner spinnerAmount = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
                 spinnerAmount.getEditor().setPreferredSize(new Dimension(30, 15));
                 //((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().setBackground(Color.WHITE);
                 JFormattedTextField field = ((JSpinner.NumberEditor) spinnerAmount.getEditor()).getTextField();
