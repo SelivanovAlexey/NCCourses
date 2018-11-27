@@ -1,6 +1,7 @@
 package libraryUI;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -140,7 +141,9 @@ public class Listeners {
                 JLabel lblQuestion = new JLabel("How many books you want to delete: ");
                 JSpinner spinnerAmount = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
                 spinnerAmount.getEditor().setPreferredSize(new Dimension(30, 15));
-                ((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().setBackground(Color.WHITE);
+                //((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().setBackground(Color.WHITE);
+                JFormattedTextField field = ((JSpinner.NumberEditor) spinnerAmount.getEditor()).getTextField();
+                ((NumberFormatter) field.getFormatter()).setAllowsInvalid(false);
                 gbl.setConstraints(lblSlct, c);
                 gbl.setConstraints(lblInstck, c);
                 gbl.setConstraints(lblQuestion, c);
@@ -156,6 +159,7 @@ public class Listeners {
                     public void actionPerformed(ActionEvent e) {
                         int row = table.getSelectedRow();
                         String bookName = (String) table.getValueAt(row, 0);
+
                         int deleteAmount = Integer.parseInt(((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().getText());
                         int currentAmount = (int) table.getValueAt(row, 3);
                         if (deleteAmount <= currentAmount) {
