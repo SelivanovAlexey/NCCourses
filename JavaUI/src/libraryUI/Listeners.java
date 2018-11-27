@@ -39,24 +39,22 @@ public class Listeners {
             } else {
                 String error = "";
                 try {
-                	Double.parseDouble(priceText.getText());
-                }
-                catch(NumberFormatException ex) {
-                	error+=("Wrong price (should be double): "+priceText.getText()+'\n');
+                    Double.parseDouble(priceText.getText());
+                } catch (NumberFormatException ex) {
+                    error += ("Wrong price (should be double): " + priceText.getText() + '\n');
                 }
                 try {
-                	Double.parseDouble(countText.getText());
+                    Double.parseDouble(countText.getText());
+                } catch (NumberFormatException ex) {
+                    error += ("Wrong book's count (should be double): " + countText.getText());
                 }
-                catch(NumberFormatException ex) {
-                	error+=("Wrong book's count (should be double): "+countText.getText());
-                }
-                if (!(error.equals(""))) 
-                	JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
+                if (!(error.equals("")))
+                    JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
                 else {
-	                Book addingBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
-	                        emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
-	                        Integer.parseInt(countText.getText()));
-	                model.addBook(addingBook);
+                    Book addingBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
+                            emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
+                            Integer.parseInt(countText.getText()));
+                    model.addBook(addingBook);
                 }
             }
         }
@@ -76,25 +74,23 @@ public class Listeners {
                 int row = table.getSelectedRow();
                 String error = "";
                 try {
-                	Double.parseDouble(priceText.getText());
-                }
-                catch(NumberFormatException ex) {
-                	error+=("Wrong price (should be double): "+priceText.getText()+'\n');
+                    Double.parseDouble(priceText.getText());
+                } catch (NumberFormatException ex) {
+                    error += ("Wrong price (should be double): " + priceText.getText() + '\n');
                 }
                 try {
-                	Double.parseDouble(countText.getText());
+                    Double.parseDouble(countText.getText());
+                } catch (NumberFormatException ex) {
+                    error += ("Wrong book's count (should be double): " + countText.getText());
                 }
-                catch(NumberFormatException ex) {
-                	error+=("Wrong book's count (should be double): "+countText.getText());
-                }
-                if (!(error.equals(""))) 
-                	JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
+                if (!(error.equals("")))
+                    JOptionPane.showMessageDialog(dialog, "Wrong field types: \n" + error);
                 else {
-	                Book newBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
-	                        emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
-	                        Integer.parseInt(countText.getText()));
-	                model.editBook(row, newBook);
-	                dialog.setVisible(false);
+                    Book newBook = new Book(nameText.getText(), new Author(nameAuthorText.getText(),
+                            emailText.getText(), getChoosedGender()), Double.parseDouble(priceText.getText()),
+                            Integer.parseInt(countText.getText()));
+                    model.editBook(row, newBook);
+                    dialog.setVisible(false);
                 }
             }
         }
@@ -125,34 +121,62 @@ public class Listeners {
             if (table.getSelectedRow() != -1) {
                 JDialog dialog = new JDialog(frame, "Delete", true);
                 dialog.setResizable(false);
-                dialog.setSize(360, 100);
+                dialog.setSize(350, 190);
                 dialog.setLocationRelativeTo(frame);
+                dialog.setLayout(new BorderLayout());
 
                 JPanel panel = new JPanel();
-                panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+                GridBagLayout gbl = new GridBagLayout();
+                GridBagConstraints c = new GridBagConstraints();
+                panel.setLayout(gbl);
+                c.anchor = GridBagConstraints.NORTHWEST;
+                c.gridheight = 1;
+                c.gridwidth = GridBagConstraints.REMAINDER;
+                c.gridx = GridBagConstraints.RELATIVE;
+                c.gridy = GridBagConstraints.RELATIVE;
+                c.insets = new Insets(6, 6, 6, 6);
+                JLabel lblSlct = new JLabel("You have selected:  " + table.getValueAt(table.getSelectedRow(), 0));
+                JLabel lblInstck = new JLabel("In stock:  " + table.getValueAt(table.getSelectedRow(), 3) + " book(s)");
                 JLabel lblQuestion = new JLabel("How many books you want to delete: ");
+                JSpinner spinnerAmount = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+                spinnerAmount.getEditor().setPreferredSize(new Dimension(30, 15));
+                ((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().setBackground(Color.WHITE);
+                gbl.setConstraints(lblSlct, c);
+                gbl.setConstraints(lblInstck, c);
+                gbl.setConstraints(lblQuestion, c);
+                gbl.setConstraints(spinnerAmount, c);
+
+                panel.add(lblSlct);
+                panel.add(lblInstck);
                 panel.add(lblQuestion);
-                JTextField deleteAmount = new JTextField(10);
-                panel.add(deleteAmount);
+                panel.add(spinnerAmount);
                 JButton deleteBtn = new JButton("Delete");
                 deleteBtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        try {
-                            if (Integer.parseInt(deleteAmount.getText()) <= (Integer) table.getValueAt(table.getSelectedRow(), 3)) {
-                                model.deleteBook(table.getSelectedRow(), Integer.parseInt(deleteAmount.getText()));
-                                dialog.setVisible(false);
+                        int row = table.getSelectedRow();
+                        String bookName = (String) table.getValueAt(row, 0);
+                        int deleteAmount = Integer.parseInt(((JSpinner.DefaultEditor) spinnerAmount.getEditor()).getTextField().getText());
+                        int currentAmount = (int) table.getValueAt(row, 3);
+                        if (deleteAmount <= currentAmount) {
+                            model.deleteBook(row, deleteAmount);
+                            currentAmount -= deleteAmount;
+                            if (currentAmount == 0) {
+                                JOptionPane.showMessageDialog(dialog, bookName + " is out of stock now");
                             } else {
-                                JOptionPane.showMessageDialog(dialog, "Invalid amount");
+                                JOptionPane.showMessageDialog(dialog, "Now in stock: " +
+                                        currentAmount + " book(s)");
                             }
-                        }
-                        catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(dialog, "Wrong field type");
+                            dialog.setVisible(false);
+                        } else {
+                            JOptionPane.showMessageDialog(dialog, "Invalid amount\nShould not be more than " +
+                                    table.getValueAt(row, 3));
                         }
                     }
                 });
+                gbl.setConstraints(deleteBtn, c);
                 panel.add(deleteBtn);
-                dialog.add(panel);
+                dialog.add(panel, BorderLayout.WEST);
                 panel.setVisible(true);
                 dialog.setVisible(true);
             }
@@ -332,6 +356,3 @@ public class Listeners {
         else genderRBtnMale.setSelected(true);
     }
 }
-
-
-
